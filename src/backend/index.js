@@ -5,6 +5,7 @@ import compression from 'compression';
 import logger from 'morgan';
 import expressValidator from 'express-validator';
 import mongoose from 'mongoose';
+import path from 'path';
 
 import pkg from '../../package.json';
 
@@ -19,12 +20,20 @@ const connectDB = async () => {
   }
 };
 connectDB();
+
+require('dotenv').config({
+  path: path.join(__dirname, './config/dev.env'),
+});
+
 const TodoItemRoute = require('./routes/todoItems');
+const authRouter = require('./routes/auth');
 
 const startServer = async () => {
   const app = express();
+  app.use(logger('combined'));
   app.use(express.json());
   app.use('/', TodoItemRoute);
+  app.use('/api/auth/', authRouter);
 
   if (process.env.NODE_ENV !== 'production') {
     // eslint-disable-next-line global-require
@@ -84,7 +93,7 @@ const startServer = async () => {
           </script>
         </head>
         <body>
-          <div id="login"></div>
+          <div id="LoginApp"></div>
           <script type="text/javascript" src="/app.js?v=${pkg.version}"></script>
         </body>
       </html>  
