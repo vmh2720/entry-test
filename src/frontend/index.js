@@ -4,7 +4,7 @@ import 'react-app-polyfill/ie9'; // For IE 9-11 support
 import 'react-app-polyfill/ie11'; // For IE 11 support
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Appp from './login';
+import Logintest from './Logintest';
 
 import './index.css';
 
@@ -12,4 +12,4 @@ if (module.hot) {
   module.hot.accept();
 }
 
-ReactDOM.render(<Appp />, document.getElementById('login'));
+ReactDOM.render(<Logintest />, document.getElementById('login'));

@@ -93,7 +93,7 @@ const startServer = async () => {
           </script>
         </head>
         <body>
-          <div id="LoginApp"></div>
+          <div id="login"></div>
           <script type="text/javascript" src="/app.js?v=${pkg.version}"></script>
         </body>
       </html>  
