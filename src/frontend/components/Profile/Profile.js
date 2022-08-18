@@ -1,12 +1,13 @@
 import React from 'react';
+import { Button } from 'antd';
 
 import './profile.css';
 
 const Profile = ({ user, logout }) => {
   return (
-    <button className="button-logout" onClick={logout}>
+    <Button className="button-logout" type="primary" onClick={logout}>
       Logout
-    </button>
+    </Button>
   );
 };
 
