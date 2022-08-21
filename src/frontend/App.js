@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import './App.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { actGetItemsList, actAddItem, actDeleteItem, actUpdateItem } from './redux/actions/itemsAction';
 
 function App() {
+  const dispatch = useDispatch();
+  const itemsList = useSelector(state => state.itemsReducer);
+
   const [itemText, setItemText] = useState('');
   const [listItems, setListItems] = useState([]);
   const [isUpdating, setIsUpdating] = useState('');
@@ -10,45 +14,34 @@ function App() {
 
   const addItem = async e => {
     e.preventDefault();
-    try {
-      const res = await axios.post('http://localhost:3000/api/item', { item: itemText });
-      setListItems(prev => [...prev, res.data]);
-      setItemText('');
-    } catch (err) {
-      console.info(err);
-    }
+    setItemText('');
+    dispatch(actAddItem(itemText));
   };
 
   useEffect(() => {
-    const getItemsList = async () => {
-      try {
-        const res = await axios.get('http://localhost:3000/api/items');
-        setListItems(res.data);
-        console.info('render');
-      } catch (err) {
-        console.info(err);
-      }
-    };
-    getItemsList();
-  }, []);
+    dispatch(actGetItemsList());
+  }, [dispatch]);
 
-  const deleteItem = async id => {
-    try {
-      const res = await axios.delete(`http://localhost:3000/api/item/${id}`);
-      const newListItems = listItems.filter(item => item._id !== id);
-      setListItems(newListItems);
-    } catch (err) {
-      console.info(err);
+  useEffect(() => {
+    if (itemsList != null && itemsList.dataValue.length > 0) {
+      setListItems(itemsList.dataValue);
     }
+
+    if (itemsList.message !== '') {
+      alert(itemsList.message);
+      dispatch(actGetItemsList());
+    }
+  }, [itemsList]);
+
+  const showUIUpdate = async item => {
+    setIsUpdating(item._id);
+    setUpdateItemText(item.item);
   };
 
   const updateItem = async e => {
     e.preventDefault();
     try {
-      const res = await axios.put(`http://localhost:3000/api/item/${isUpdating}`, { item: updateItemText });
-      console.info(res.data);
-      const updatedItemIndex = listItems.findIndex(item => item._id === isUpdating);
-      const updatedItem = (listItems[updatedItemIndex].item = updateItemText);
+      dispatch(actUpdateItem(isUpdating, updateItemText));
       setUpdateItemText('');
       setIsUpdating('');
     } catch (err) {
@@ -91,8 +84,8 @@ function App() {
           <button type="submit">Add</button>
         </form>
         <div className="todo-listItems">
-          {listItems.map(item => (
-            <div className="todo-item">
+          {listItems.map((item, index) => (
+            <div key={index} className="todo-item">
               {isUpdating === item._id ? (
                 renderUpdateForm()
               ) : (
@@ -101,17 +94,12 @@ function App() {
                   <button
                     className="update-item"
                     onClick={() => {
-                      setIsUpdating(item._id);
+                      showUIUpdate(item);
                     }}
                   >
                     Update
                   </button>
-                  <button
-                    className="delete-item"
-                    onClick={() => {
-                      deleteItem(item._id);
-                    }}
-                  >
+                  <button className="delete-item" onClick={() => dispatch(actDeleteItem(item._id))}>
                     Delete
                   </button>
                 </>
