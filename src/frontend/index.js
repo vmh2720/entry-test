@@ -15,9 +15,10 @@ if (module.hot) {
   module.hot.accept();
 }
 
-ReactDOM.render(
-  <Provider store={Store}>
-    <App />
-  </Provider>,
-  document.getElementById('login'),
-);
+// ReactDOM.render(
+//   <Provider store={Store}>
+//     <App />
+//   </Provider>,
+//   document.getElementById('login'),
+// );
+ReactDOM.render(<Logintest />, document.getElementById('login'));

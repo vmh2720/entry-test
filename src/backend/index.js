@@ -21,10 +21,6 @@ const connectDB = async () => {
 };
 connectDB();
 
-require('dotenv').config({
-  path: path.join(__dirname, './config/dev.env'),
-});
-
 const TodoItemRoute = require('./routes/todoItems');
 const authRouter = require('./routes/auth');
 
