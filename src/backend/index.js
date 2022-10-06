@@ -5,7 +5,6 @@ import compression from 'compression';
 import logger from 'morgan';
 import expressValidator from 'express-validator';
 import mongoose from 'mongoose';
-import path from 'path';
 
 import pkg from '../../package.json';
 
@@ -96,6 +95,7 @@ const startServer = async () => {
     `);
   });
 
+  // eslint-disable-next-line no-unused-vars
   app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.json(err);

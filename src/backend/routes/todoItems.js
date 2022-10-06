@@ -3,6 +3,7 @@ const todoItemsModel = require('../models/todoItems');
 
 router.post('/api/item', async (req, res) => {
   try {
+    // eslint-disable-next-line new-cap
     const newItem = new todoItemsModel({
       item: req.body.item,
     });
@@ -33,6 +34,7 @@ router.put('/api/item/:id', async (req, res) => {
 
 router.delete('/api/item/:id', async (req, res) => {
   try {
+    // eslint-disable-next-line no-unused-vars
     const deleteItem = await todoItemsModel.findByIdAndDelete(req.params.id);
     res.status(200).json('Item Deleted');
   } catch (err) {

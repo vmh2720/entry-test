@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable react/button-has-type */
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { useSelector, useDispatch } from 'react-redux';
@@ -71,6 +73,14 @@ function App() {
 
   return (
     <>
+      <div className="d-flex justify-content-center align-items-center flex-column">
+        <div className="topnav">
+          <a className="active" href="#home">
+            Home
+          </a>
+          <a href="#TodoList">Todo List</a>
+        </div>
+      </div>
       <div className="App">
         <h1>Todo List</h1>
         <form className="form" onSubmit={e => addItem(e)}>

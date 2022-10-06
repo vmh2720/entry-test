@@ -1,7 +1,10 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/button-has-type */
 import React from 'react';
 
 import './profile.css';
 
+// eslint-disable-next-line react/prop-types
 const Profile = ({ user, logout }) => {
   return (
     <div className="profile-page">

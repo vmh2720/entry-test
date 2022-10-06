@@ -5,11 +5,12 @@ import login from '../../api/googleAuth';
 import './googleLogin.css';
 
 export default props => {
-  const responseGoogle = async authResult => {
+  const responseGoogle = authResult => {
     try {
       if (authResult.code) {
-        const result = await login(authResult.code);
+        const result = login(authResult.code);
         console.info(authResult);
+        // eslint-disable-next-line react/prop-types
         props.login(result);
       } else {
         throw new Error(authResult);
@@ -22,7 +23,7 @@ export default props => {
   return (
     <div className="login-page">
       <GoogleLogin
-        clientId="811569830024-ojqros7mc8im786ddi1cj5l9tk94149c.apps.googleusercontent.com"
+        clientId="486399924742-s2e240actpvcjdtv0miq1k5nivn98fej.apps.googleusercontent.com"
         buttonText="Login with google"
         responseType="code"
         redirectUri="postmessage"

@@ -1,6 +1,9 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import GoogleLogin from './components/GoogleLogin/GoogleLogin';
 import Profile from './components/Profile/Profile';
+
+import Store from './redux/Store';
 import App from './App';
 
 class Logintest extends React.Component {
@@ -35,7 +38,9 @@ class Logintest extends React.Component {
               <a href="#TodoList">Todo List</a>
             </div>
             <Profile user={this.state.userProfile} logout={this.logout}></Profile>
-            <App />
+            <Provider store={Store}>
+              <App />
+            </Provider>
           </div>
         ) : (
           <GoogleLogin login={this.login} />

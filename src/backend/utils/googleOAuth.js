@@ -1,8 +1,8 @@
 const { OAuth2Client } = require('google-auth-library');
 
 const client = new OAuth2Client(
-  '811569830024-ojqros7mc8im786ddi1cj5l9tk94149c.apps.googleusercontent.com',
-  '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',
+  '486399924742-s2e240actpvcjdtv0miq1k5nivn98fej.apps.googleusercontent.com',
+  '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',
   'postmessage',
 );
 
@@ -12,7 +12,7 @@ exports.getProfileInfo = async code => {
 
   const ticket = await client.verifyIdToken({
     idToken,
-    audience: '811569830024-ojqros7mc8im786ddi1cj5l9tk94149c.apps.googleusercontent.com',
+    audience: '486399924742-s2e240actpvcjdtv0miq1k5nivn98fej.apps.googleusercontent.com',
   });
 
   const payload = ticket.getPayload();
